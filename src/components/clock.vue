@@ -40,7 +40,7 @@ export default {
         width: 400px;
         height: 400px;
 
-        border: 6px solid #c3cf0a;
+        border: 6px solid #8fc066;
         border-radius: 50%;
     }
     .timer-text {

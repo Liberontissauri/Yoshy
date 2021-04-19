@@ -53,7 +53,7 @@ export default {
         font-size: 16pt;
         font-family: 'Montserrat', sans-serif;
 
-        background-color: #13542d;
+        background-color: #8fc066;
         border: 0;
         border-radius: 20px;
     }

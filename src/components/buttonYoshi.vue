@@ -15,7 +15,7 @@ export default {
       height: 50px;
       width: 200px;
 
-      background-color: #13542d;
+      background-color: #8fc066;
 
       color: white;
       font-size: 20pt;
