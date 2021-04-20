@@ -54,6 +54,9 @@ export default createStore({
     onSecond(context) { //function ran in each second
       if(context.getters.getTime > 0 && context.getters.getRunning) {
         context.commit("decreaseTime");
+        if(context.getters.getTime == 0) {
+          context.commit("setImgDialogOpen", true);
+        }
       }
     }
   },
