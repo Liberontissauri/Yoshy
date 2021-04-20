@@ -5,6 +5,7 @@ export default createStore({
     timer_time: 0, // In seconds
     input_time: 0,      // In minutes
     running: true,
+    img_dialog_open: true,
   },
   getters: {
     getTime(state) {
@@ -15,6 +16,9 @@ export default createStore({
     },
     getRunning(state) {
       return state.running;
+    },
+    getImgDialogOpen(state) {
+      return state.img_dialog_open;
     }
   },
   mutations: {
@@ -26,6 +30,9 @@ export default createStore({
     },
     setRunning(state, value) {
       state.running = value;
+    },
+    setImgDialogOpen(state, value) {
+      state.img_dialog_open = value;
     },
     decreaseTime(state) {
       state.timer_time -= 1;
@@ -45,7 +52,6 @@ export default createStore({
       context.commit("setRunning", !context.getters.getRunning);
     },
     onSecond(context) { //function ran in each second
-      console.log("heyhey")
       if(context.getters.getTime > 0 && context.getters.getRunning) {
         context.commit("decreaseTime");
       }

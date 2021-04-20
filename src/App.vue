@@ -6,25 +6,34 @@
     </div>
     <button-yoshi v-bind:text="counting_text" @click="clickTimerButton"/>
   </div>
+  <dialogYoshi :active="isOpen_img_dialog" :title="'Sadly not yoshi'"
+  
+  @dialog_close="closeImg"
+  ><img :src="require('@/assets/catcat.jpg')" alt="" class="dialog-img"></dialogYoshi>
   
 </template>
 
 <script>
 import clock from './components/clock';
+import dialogYoshi from './components/dialogYoshi'
 import buttonYoshi from './components/buttonYoshi'
 import numberInput from './components/numberInput';
+
 
 export default {
   name: 'App',
   components: {
     clock,
     buttonYoshi,
-    numberInput
+    numberInput,
+    dialogYoshi,
   },
   methods: {
     clickTimerButton() {
       this.$store.dispatch('toggleRunning');
-
+    },
+    closeImg() {
+      this.$store.commit('setImgDialogOpen', false);
     }
   },
   computed: {
@@ -37,6 +46,9 @@ export default {
       } else {
         return "Start";
       }
+    },
+    isOpen_img_dialog() {
+      return this.$store.getters.getImgDialogOpen;
     }
   },
   mounted() {
@@ -46,7 +58,7 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Montserrat:wght@500&family=Montserrat:wght@200&display=swap');
 
 html, body, #app, .mainDiv {
   height: 95%;
@@ -63,5 +75,10 @@ html, body, #app, .mainDiv {
   align-items: center;
   justify-content: space-evenly;
 
+}
+.dialog-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 </style>
