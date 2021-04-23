@@ -42,9 +42,8 @@ export default {
 
     .dialog-slot {
         display: flex;
-        justify-content: center;
         width: 100%;
-        height: 100%;
+        height: 440px;
         z-index: 800;
     }
     .dialog-text {
