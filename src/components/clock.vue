@@ -8,7 +8,7 @@
 export default {
     props: {
         time: Number,
-
+        
     },
     computed: {
         fullTime() {

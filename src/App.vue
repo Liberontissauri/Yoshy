@@ -1,20 +1,20 @@
 <template>
   <div class="mainDiv">
+    <settingsButton @click="openSettings"></settingsButton>
     <clock v-bind:time="current_time"/>
     <div>
       <number-input v-bind:hasButton="true" v-bind:buttonText="'Set Time'"/>
     </div>
     <button-yoshi v-bind:text="counting_text" @click="clickTimerButton"/>
   </div>
-  <dialogYoshi :active="isOpen_img_dialog" :title="'Sadly not yoshi'"
+  <dialogYoshi :active="isOpen_img_dialog" :title="'Enjoy your Image!'"
   
   @dialog_close="closeImg"
-  ><img :src="require('@/assets/catcat.jpg')" alt="" class="dialog-img"></dialogYoshi>
+  ><img :src="selected_url" alt="" class="dialog-img"></dialogYoshi>
 
-   <dialogYoshi :active="isOpen_settings_dialog" :title="'Sadly not yoshi'" @dialog_close="closeImg">
-     <settings/>
-     </dialogYoshi>
-  
+  <dialogYoshi :active="isOpen_settings_dialog" :title="''" @dialog_close="closeSettings">
+    <settings/>
+  </dialogYoshi>
   
 </template>
 
@@ -23,6 +23,7 @@ import clock from './components/clock';
 import dialogYoshi from './components/dialogYoshi'
 import buttonYoshi from './components/buttonYoshi'
 import numberInput from './components/numberInput';
+import settingsButton from './components/settingsButton'
 import settings from './components/settings'
 
 
@@ -34,16 +35,21 @@ export default {
     numberInput,
     dialogYoshi,
     settings,
+    settingsButton,
   },
   methods: {
     clickTimerButton() {
       this.$store.dispatch('toggleRunning');
-    },
+      this.$store.dispatch('randomizeLink');
+      },
     closeImg() {
       this.$store.commit('setImgDialogOpen', false);
     },
+    openSettings() {
+      this.$store.commit('setSettingsDialogOpen', true);
+    },
     closeSettings() {
-      this.$store.commit('setImgDialogOpen', false);
+      this.$store.commit('setSettingsDialogOpen', false);
     }
   },
   computed: {
@@ -62,6 +68,9 @@ export default {
     },
     isOpen_settings_dialog() {
       return this.$store.getters.getSettingsDialogOpen;
+    },
+    selected_url() {
+      return this.$store.getters.getSelectedLink;
     }
   },
   mounted() {
@@ -74,15 +83,21 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Montserrat:wght@500&family=Montserrat:wght@200&display=swap');
 
 html, body, #app, .mainDiv {
-  height: 95%;
+  height: 100%;
+  overflow-y: hidden;
 }
 
 #app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .mainDiv {
+  height: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -94,4 +109,5 @@ html, body, #app, .mainDiv {
     width: 100%;
     object-fit: cover;
 }
+
 </style>
