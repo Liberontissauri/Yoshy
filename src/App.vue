@@ -10,6 +10,11 @@
   
   @dialog_close="closeImg"
   ><img :src="require('@/assets/catcat.jpg')" alt="" class="dialog-img"></dialogYoshi>
+
+   <dialogYoshi :active="isOpen_settings_dialog" :title="'Sadly not yoshi'" @dialog_close="closeImg">
+     <settings/>
+     </dialogYoshi>
+  
   
 </template>
 
@@ -18,6 +23,7 @@ import clock from './components/clock';
 import dialogYoshi from './components/dialogYoshi'
 import buttonYoshi from './components/buttonYoshi'
 import numberInput from './components/numberInput';
+import settings from './components/settings'
 
 
 export default {
@@ -27,12 +33,16 @@ export default {
     buttonYoshi,
     numberInput,
     dialogYoshi,
+    settings,
   },
   methods: {
     clickTimerButton() {
       this.$store.dispatch('toggleRunning');
     },
     closeImg() {
+      this.$store.commit('setImgDialogOpen', false);
+    },
+    closeSettings() {
       this.$store.commit('setImgDialogOpen', false);
     }
   },
@@ -49,6 +59,9 @@ export default {
     },
     isOpen_img_dialog() {
       return this.$store.getters.getImgDialogOpen;
+    },
+    isOpen_settings_dialog() {
+      return this.$store.getters.getSettingsDialogOpen;
     }
   },
   mounted() {

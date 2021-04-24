@@ -5,7 +5,8 @@ export default createStore({
     timer_time: 0, // In seconds
     input_time: 0,      // In minutes
     running: true,
-    img_dialog_open: true,
+    img_dialog_open: false,
+    settings_dialog_open: true,
   },
   getters: {
     getTime(state) {
@@ -19,6 +20,9 @@ export default createStore({
     },
     getImgDialogOpen(state) {
       return state.img_dialog_open;
+    },
+    getSettingsDialogOpen(state) {
+      return state.settings_dialog_open;
     }
   },
   mutations: {
